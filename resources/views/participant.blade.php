@@ -1,10 +1,10 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            <i class="fas fa-home mr-2"></i>
-            {{ __('Participant') }}
-        </h2>
-    </x-slot>
+<x-slot name="header">
+    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <i class="fas fa-users mr-2"></i>
+        {{ __('Participant') }}
+    </h2>
+</x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -17,12 +17,16 @@
                             <thead>
                                 <tr style="background-color: #007bff; color: white; text-align: left;">
                                     <th class="p-2 border-b">Email</th>
+                                    <th class="p-2 border-b">Date</th>
+                                    <th class="p-2 border-b">Time</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @php
-                                $assessments = \App\Models\Assessment::with('user')->get();
-
+                                    // Load the assessments directly in the Blade file
+                                    $assessments = \App\Models\Assessment::with('user')->get();
+                                    
+                                    // Filter and select random participants
                                     $approvedAssessments = $assessments->filter(fn($assessment) => $assessment->status === 'approved');
                                     $randomParticipants = $approvedAssessments->random(min(5, $approvedAssessments->count()));
                                 @endphp
@@ -30,10 +34,12 @@
                                 @forelse ($randomParticipants as $participant)
                                     <tr>
                                         <td class="p-2 border-b">{{ $participant->user->email }}</td>
+                                        <td class="p-2 border-b">{{ $participant->created_at->format('Y-m-d') }}</td>
+                                        <td class="p-2 border-b">{{ $participant->created_at->format('H:i:s') }}</td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="10" class="p-2 text-center text-gray-500">No participant yet.</td>
+                                        <td colspan="3" class="p-2 text-center text-gray-500">No participant yet.</td>
                                     </tr>
                                 @endforelse
                             </tbody>
@@ -44,5 +50,3 @@
         </div>
     </div>
 </x-app-layout>
-
-

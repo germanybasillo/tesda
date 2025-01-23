@@ -20,11 +20,11 @@
 </x-nav-link>
 
 <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-    <i class="fas fa-tachometer-alt mr-2"></i> {{ __('DASHBOARD') }}
+    <i class="fas fa-tachometer-alt mr-2"> </i> {{ __('DASHBOARD') }}
 </x-nav-link>
 
 <x-nav-link :href="route('participant')" :active="request()->routeIs('participant')">
-    <i class="fas fa-tachometer-alt mr-2"></i> {{ __('Participant') }}
+    <i class="fas fa-users mr-2"></i> {{ __('Participant') }}
 </x-nav-link>
 
     </div>
