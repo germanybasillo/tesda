@@ -22,7 +22,6 @@
                                     font-weight: bold;
                                 }
                             </style>
-			    <h1 class="text-2xl font-bold mb-6 text-center">Set Desired Date of Assessment</h1>
 
                 <form action="{{ route('assessments.store') }}" method="POST" class="space-y-6" enctype="multipart/form-data">
 			    @csrf
@@ -30,6 +29,9 @@
 
 
 				<div id="step1">
+
+                <h1 class="text-2xl font-bold mb-6 text-center">Set Desired Date of Assessment</h1>
+                
    <div>
     <label for="assessment_date" class="block text-sm font-medium mb-2">
         Desired Date of Assessment:    </label>
@@ -51,7 +53,7 @@
                                         <option value="FBS NC II">FBS NC II</option>
                                         <option value="CSS NC II">CSS NC II</option>
 					<option value="Cook NC II">Cook NC II</option>
-                                        <option value="Cook NC II">Driving NC II</option>
+                                        <option value="Driving NC II">Driving NC II</option>
                                     </select>
                                 </div>
 
@@ -118,6 +120,12 @@
             </div>
  <!-- Step 2: Document Upload -->
     <div id="step2" style="display: none;">
+        
+    <!-- Document Title -->
+    <div id="qualificationTitle" class="mt-4">
+            <h3>Please upload your document here (PDF)</h3>
+        </div>
+
 <!-- Endorsement Letter To TESDA -->
 <div class="mt-4">
     <x-input-label for="elttDocument" :value="__('Endorsement Letter To TESDA')" />
@@ -185,11 +193,24 @@
 </form>
 
 <script>
+    // Handle qualification selection and dynamically update Step 2 title
+    document.getElementById('qualification').addEventListener('change', function() {
+        const qualification = this.value;
+        const titleElement = document.getElementById('qualificationTitle');
+
+        // Update title based on selected qualification
+        if (qualification) {
+            titleElement.innerHTML = `<h3>Please add PDF for ${qualification}</h3>`;
+        }
+    });
+</script>
+
+<script>
     function goBackToStep1() {
         // Hide Step 2 and show Step 1
         document.getElementById('step2').style.display = 'none';
         document.getElementById('step1').style.display = 'block';
-    }
+    }       
 </script>
 
 <script>
