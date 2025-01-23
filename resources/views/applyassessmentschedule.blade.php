@@ -24,7 +24,7 @@
                             </style>
 			    <h1 class="text-2xl font-bold mb-6 text-center">Set Desired Date of Assessment</h1>
 
-                            <form action="{{ route('assessments.store') }}" method="POST" class="space-y-6" enctype="multipart/form-data">
+                <form action="{{ route('assessments.store') }}" method="POST" class="space-y-6" enctype="multipart/form-data">
 			    @csrf
 
 
@@ -41,27 +41,20 @@
         class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100"
     >
 </div>
+                                                                 <div>
+                                    <label for="qualification" class="block text-sm font-medium mb-2">
+                                        Qualification:
+                                    </label>
+                                    <select id="qualification" name="qualification" required 
+					    class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100">
+                                        <option value="" disabled selected>Select your qualification</option>
+                                        <option value="FBS NC II">FBS NC II</option>
+                                        <option value="CSS NC II">CSS NC II</option>
+					<option value="Cook NC II">Cook NC II</option>
+                                        <option value="Cook NC II">Driving NC II</option>
+                                    </select>
+                                </div>
 
-                                  <div>
-            <label for="qualification" class="block text-sm font-medium mb-2">
-                Qualification:
-            </label>
-            <div id="qualification-container">
-                <div class="qualification-field">
-                    <select name="qualification[]" required 
-                        class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100">
-                        <option value="" disabled selected>Select your qualification</option>
-                        <option value="FBS NC II">FBS NC II</option>
-                        <option value="CSS NC II">CSS NC II</option>
-                        <option value="Cook NC II">Cook NC II</option>
-                        <option value="Driving NC II">Driving NC II</option>
-                    </select>
-                </div>
-            </div>
-            <button type="button" id="add_qualification" class="text-blue-500 mt-2">
-                Add another qualification
-            </button>
-        </div>
                                 <div>
                                     <label for="no_of_pax" class="block text-sm font-medium mb-2">
                                         Number of Pax:
@@ -114,8 +107,15 @@
         disabled>
     Apply Schedule
 </button>
-            </div>
 
+   <!-- Cancel Button to go back -->
+   <button type="button" id="cancel_button" 
+            class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg hover:bg-gray-400"
+            onclick="window.history.back();">
+            Cancel
+        </button>
+
+            </div>
  <!-- Step 2: Document Upload -->
     <div id="step2" style="display: none;">
 <!-- Endorsement Letter To TESDA -->
@@ -172,72 +172,25 @@
                                     <button id="submit_button" type="submit" 
                                             class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300" 
                                      >Submit</button>
+
+                                      <!-- Cancel Button to go back -->
+                                      <button type="button" id="cancel_button_step2" 
+    class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg hover:bg-gray-400"
+    onclick="goBackToStep1();">
+    Cancel
+</button>
+
 				</div>
 </div>
 </form>
 
 <script>
-
-document.getElementById('add_qualification').addEventListener('click', function () {
-    const qualificationContainer = document.getElementById('qualification-container');
-    const qualificationFields = qualificationContainer.querySelectorAll('.qualification-field');
-
-    if (qualificationFields.length < 4) {
-        const newQualificationField = document.createElement('div');
-        newQualificationField.classList.add('qualification-field');
-        
-        const newSelect = document.createElement('select');
-        newSelect.name = "qualification[]";
-        newSelect.required = true;
-        newSelect.classList.add('w-full', 'px-4', 'py-2', 'border', 'rounded-lg', 'focus:ring', 'focus:ring-blue-300', 'dark:bg-gray-700', 'dark:border-gray-600', 'dark:text-gray-100');
-        
-        const option1 = document.createElement('option');
-        option1.value = "";
-        option1.disabled = true;
-        option1.selected = true;
-        option1.textContent = "Select your qualification";
-        
-        const option2 = document.createElement('option');
-        option2.value = "FBS NC II";
-        option2.textContent = "FBS NC II";
-        
-        const option3 = document.createElement('option');
-        option3.value = "CSS NC II";
-        option3.textContent = "CSS NC II";
-        
-        const option4 = document.createElement('option');
-        option4.value = "Cook NC II";
-        option4.textContent = "Cook NC II";
-        
-        const option5 = document.createElement('option');
-        option5.value = "Driving NC II";
-        option5.textContent = "Driving NC II";
-
-        newSelect.appendChild(option1);
-        newSelect.appendChild(option2);
-        newSelect.appendChild(option3);
-        newSelect.appendChild(option4);
-        newSelect.appendChild(option5);
-        
-        newQualificationField.appendChild(newSelect);
-        qualificationContainer.appendChild(newQualificationField);
-    } else {
-        alert("You can only add up to 4 qualifications.");
+    function goBackToStep1() {
+        // Hide Step 2 and show Step 1
+        document.getElementById('step2').style.display = 'none';
+        document.getElementById('step1').style.display = 'block';
     }
-});
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
 
 <script>
     document.getElementById('agreement').addEventListener('change', function () {
