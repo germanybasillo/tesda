@@ -1,0 +1,48 @@
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            <i class="fas fa-home mr-2"></i>
+            {{ __('Participant') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <h3 class="text-lg font-semibold mb-4">Participant</h3>
+
+                    <div style="max-height: 200px; overflow-y: auto; border: 1px solid #ccc; border-radius: 8px;">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background-color: #007bff; color: white; text-align: left;">
+                                    <th class="p-2 border-b">Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php
+                                $assessments = \App\Models\Assessment::with('user')->get();
+
+                                    $approvedAssessments = $assessments->filter(fn($assessment) => $assessment->status === 'approved');
+                                    $randomParticipants = $approvedAssessments->random(min(5, $approvedAssessments->count()));
+                                @endphp
+
+                                @forelse ($randomParticipants as $participant)
+                                    <tr>
+                                        <td class="p-2 border-b">{{ $participant->user->email }}</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="10" class="p-2 text-center text-gray-500">No participant yet.</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout>
+
+

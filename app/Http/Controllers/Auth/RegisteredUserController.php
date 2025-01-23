@@ -33,14 +33,27 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+	    'password' => ['required', 'confirmed', Rules\Password::defaults()],
+	    'logo' => ['required', 'mimes:jpeg,jpg,png'],
+	]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+	    'password' => Hash::make($request->password),
+	]);
+
+   // Handle the file upload for logo
+        if ($request->hasFile('logo')) {
+            $file = $request->file('logo');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('logos'), $filename); // Store in public/logos folder
+            $user->logo = 'logos/' . $filename; // Save the relative path to the logo
+        }
+
+        // Save the user record with the uploaded logo
+	$user->save();
+
 
         event(new Registered($user));
 
