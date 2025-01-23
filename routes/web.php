@@ -36,9 +36,9 @@ Route::get('/applyassessmentschedule', function () {
     return view('applyassessmentschedule');
 })->middleware(['auth', 'verified'])->name('applyassessmentschedule');
 
-Route::get('/participant', function () {
-    return view('participant');
-})->middleware(['auth', 'verified'])->name('participant');
+Route::get('/representative', function () {
+    return view('representative');
+})->middleware(['auth', 'verified'])->name('representative');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/assessments/create', [AssessmentController::class, 'create'])->name('assessments.create');

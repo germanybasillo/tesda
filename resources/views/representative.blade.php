@@ -2,7 +2,7 @@
 <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
         <i class="fas fa-users mr-2"></i>
-        {{ __('Participant') }}
+        {{ __('TRIP REPRESENTATIVE') }}
     </h2>
 </x-slot>
 
@@ -10,7 +10,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <h3 class="text-lg font-semibold mb-4">Participant</h3>
+                    <h3 class="text-lg font-semibold mb-4">REPRESENTATIVE</h3>
 
                     <div style="max-height: 200px; overflow-y: auto; border: 1px solid #ccc; border-radius: 8px;">
                         <table style="width: 100%; border-collapse: collapse;">
@@ -26,20 +26,20 @@
                                     // Load the assessments directly in the Blade file
                                     $assessments = \App\Models\Assessment::with('user')->get();
                                     
-                                    // Filter and select random participants
+                                    // Filter and select random representatives
                                     $approvedAssessments = $assessments->filter(fn($assessment) => $assessment->status === 'approved');
-                                    $randomParticipants = $approvedAssessments->random(min(5, $approvedAssessments->count()));
+                                    $randomRepresentatives = $approvedAssessments->random(min(5, $approvedAssessments->count()));
                                 @endphp
 
-                                @forelse ($randomParticipants as $participant)
+                                @forelse ($randomRepresentatives as $representative)
                                     <tr>
-                                        <td class="p-2 border-b">{{ $participant->user->email }}</td>
-                                        <td class="p-2 border-b">{{ $participant->created_at->format('Y-m-d') }}</td>
-                                        <td class="p-2 border-b">{{ $participant->created_at->format('H:i:s') }}</td>
+                                        <td class="p-2 border-b">{{ $representative->user->email }}</td>
+                                        <td class="p-2 border-b">{{ $representative->created_at->format('Y-m-d') }}</td>
+                                        <td class="p-2 border-b">{{ $representative->created_at->format('H:i:s') }}</td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="3" class="p-2 text-center text-gray-500">No participant yet.</td>
+                                        <td colspan="3" class="p-2 text-center text-gray-500">No representative yet.</td>
                                     </tr>
                                 @endforelse
                             </tbody>

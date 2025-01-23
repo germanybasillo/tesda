@@ -23,8 +23,8 @@
                                 }
                             </style>
 
-                <form action="{{ route('assessments.store') }}" method="POST" class="space-y-6" enctype="multipart/form-data">
-			    @csrf
+              <form action="{{ route('assessments.store') }}" method="POST" class="space-y-6" enctype="multipart/form-data">
+    @csrf
 
 
 
@@ -244,8 +244,6 @@ function previewDocument(event, containerId, iframeId) {
 }
 </script>
 
-
-
                             <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
 document.getElementById('next_button').addEventListener('click', function () {
@@ -273,8 +271,6 @@ document.getElementById('next_button').addEventListener('click', function () {
     document.getElementById('step1').style.display = 'none';
     document.getElementById('step2').style.display = 'block';
 });
-
-
 
 
                                 // Toggle visibility of the scholarship dropdown based on the training status

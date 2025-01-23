@@ -30,17 +30,24 @@ class AssessmentController extends Controller
      */
     public function store(Request $request)
     {
+ 
+
         $request->validate([
             'assessment_date' => 'required|date|after_or_equal:today',
             'qualification' => 'required|string|max:255',
             'no_of_pax' => 'required|integer',
             'training_status' => 'required|in:scholar,non-scholar',
-            'type_of_scholar' => 'required|string|max:255',
+            'type_of_scholar' => 'nullable|string|max:255',
             'eltt' => 'required|mimes:pdf',
             'rfftp' => 'required|mimes:pdf',
             'oropfafns' => 'required|mimes:pdf',
             'sopcctvr' => 'required|mimes:pdf',
         ]);
+
+        // If training status is non-scholar, set type_of_scholar to 'NA'
+if ($request->training_status == 'non-scholar') {
+    $request->merge(['type_of_scholar' => 'N/A']);
+}
 
         // Create a new Assessment instance
         $assessment = new Assessment();
@@ -51,6 +58,7 @@ class AssessmentController extends Controller
         $assessment->training_status = $request->training_status;
         $assessment->type_of_scholar = $request->type_of_scholar;
         $assessment->status = 'pending';
+    
 
         // Handle file uploads
         if ($request->hasFile('eltt')) {
@@ -112,12 +120,17 @@ class AssessmentController extends Controller
             'qualification' => 'required|string|max:255',
             'no_of_pax' => 'required|integer',
             'training_status' => 'required|in:scholar,non-scholar',
-            'type_of_scholar' => 'required|string|max:255',
-            'eltt' => 'sometimes|mimes:pdf',
-            'rfftp' => 'sometimes|mimes:pdf',
-            'oropfafns' => 'sometimes|mimes:pdf',
-            'sopcctvr' => 'sometimes|mimes:pdf',
+            'type_of_scholar' => 'nullable|string|max:255',
+            'eltt' => 'required|mimes:pdf',
+            'rfftp' => 'required|mimes:pdf',
+            'oropfafns' => 'required|mimes:pdf',
+            'sopcctvr' => 'required|mimes:pdf',
         ]);
+
+                // If training status is non-scholar, set type_of_scholar to 'NA'
+if ($request->training_status == 'non-scholar') {
+    $request->merge(['type_of_scholar' => 'N/A']);
+}
 
         $assessment = Assessment::findOrFail($id);
 
