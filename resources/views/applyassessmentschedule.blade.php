@@ -30,8 +30,11 @@
 
 				<div id="step1">
 
-                <h1 class="text-2xl font-bold mb-6 text-center">Set Desired Date of Assessment</h1>
-                
+                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <i class="fas fa-calendar-alt mr-2"></i>
+        {{ __('Apply Assessment Schedule') }}
+    </h2>
+
    <div>
     <label for="assessment_date" class="block text-sm font-medium mb-2">
         Desired Date of Assessment:    </label>
@@ -123,7 +126,7 @@
         
     <!-- Document Title -->
     <div id="qualificationTitle" class="mt-4">
-            <h3>Please upload your document here (PDF)</h3>
+            <h2>Please upload your document here (PDF)</h2>
         </div>
 
 <!-- Endorsement Letter To TESDA -->
