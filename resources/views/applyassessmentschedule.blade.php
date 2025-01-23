@@ -113,6 +113,12 @@
     Apply Schedule
 </button>
 
+<button type="button" id="add_qualification_button" 
+                                        class="mt-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
+                                        Add Another Qualification
+                                    </button>
+
+
    <!-- Cancel Button to go back -->
    <button type="button" id="cancel_button" 
             class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg hover:bg-gray-400"
@@ -184,11 +190,13 @@
                                             class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300" 
                                      >Submit</button>
 
+                                     
+
                                       <!-- Cancel Button to go back -->
                                       <button type="button" id="cancel_button_step2" 
     class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg hover:bg-gray-400"
     onclick="goBackToStep1();">
-    Cancel
+    Back
 </button>
 
 				</div>
