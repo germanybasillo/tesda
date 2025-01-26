@@ -10,8 +10,8 @@
 
 @php
     $now = \Carbon\Carbon::now('Asia/Manila');
-    $start = $now->copy()->startOfWeek()->addDays(3)->setTime(0, 0); // Thursday 12:00 AM
-    $end = $now->copy()->startOfWeek()->addDays(3)->setTime(23, 59); // Thursday 11:59 PM
+    $start = $now->copy()->startOfWeek()->addDays(0)->setTime(0, 0); // Thursday 12:00 AM
+    $end = $now->copy()->startOfWeek()->addDays(0)->setTime(23, 59); // Thursday 11:59 PM
 
     $isAvailable = $now->between($start, $end);
 @endphp

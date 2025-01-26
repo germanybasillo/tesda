@@ -46,7 +46,10 @@
         class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100"
     >
 </div>
-                                                                 <div>
+
+<div id="qualification_container">
+    <div class="qualification_block">
+
                                     <label for="qualification" class="block text-sm font-medium mb-2">
                                         Qualification:
                                     </label>
@@ -98,6 +101,7 @@
 
                                     </select>
 				</div>
+                </div>
 
 <div>
     <label for="agreement" class="flex items-center space-x-2">
@@ -117,6 +121,83 @@
                                         class="mt-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
                                         Add Another Qualification
                                     </button>
+
+                                    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const maxQualifications = 4;
+        let qualificationCount = 1;
+
+        const addButton = document.getElementById("add_qualification_button");
+        const container = document.getElementById("qualification_container");
+
+        addButton.addEventListener("click", function () {
+            if (qualificationCount < maxQualifications) {
+                qualificationCount++;
+                const newQualification = `
+                    <div class="qualification-group">
+                        <label for="qualification_${qualificationCount}" class="block text-sm font-medium mb-2">
+                            Qualification:
+                        </label>
+                        <select id="qualification_${qualificationCount}" name="qualification[]" required
+                                class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100">
+                            <option value="" disabled selected>Select your qualification</option>
+                            <option value="FBS NC II">FBS NC II</option>
+                            <option value="CSS NC II">CSS NC II</option>
+                            <option value="Cook NC II">Cook NC II</option>
+                            <option value="Driving NC II">Driving NC II</option>
+                        </select>
+
+                        <label for="no_of_pax_${qualificationCount}" class="block text-sm font-medium mb-2">
+                            Number of Pax:
+                        </label>
+                        <select id="no_of_pax_${qualificationCount}" name="no_of_pax[]" required
+                                class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100">
+                            <option value="" disabled selected>Select your number of pax</option>
+                            @for ($i = 1; $i <= 10; $i++)
+                                <option value="{{ $i }}">{{ $i }}</option>
+                            @endfor
+                        </select>
+
+                        <label for="training_status_${qualificationCount}" class="block text-sm font-medium mb-2">
+                            Training Status:
+                        </label>
+                        <select id="training_status_${qualificationCount}" name="training_status[]" required
+                                class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100">
+                            <option value="" disabled selected>Select your training status</option>
+                            <option value="scholar">Scholar</option>
+                            <option value="non-scholar">Non-Scholar</option>
+                        </select>
+
+                        <div id="scholarship_div_${qualificationCount}" class="scholarship-div" style="display: none;">
+                            <label for="scholarship_${qualificationCount}" class="block text-sm font-medium mb-2">
+                                Scholarship Type:
+                            </label>
+                            <select id="scholarship_${qualificationCount}" name="type_of_scholar[]" 
+                                    class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100">
+                                <option value="" disabled selected>Select your scholarship type</option>
+                                <option value="ttsp">TTSP</option>
+                                <option value="cfsp">CFSP</option>
+                                <option value="uaqtea">UAQTEA</option>
+                                <option value="twsp">TWSP</option>
+                            </select>
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML("beforeend", newQualification);
+            } else {
+                alert("You can only add up to 4 qualifications.");
+            }
+        });
+
+        container.addEventListener("change", function (event) {
+            if (event.target.matches("select[name='training_status[]']")) {
+                const group = event.target.closest(".qualification-group");
+                const scholarshipDiv = group.querySelector(".scholarship-div");
+                scholarshipDiv.style.display = event.target.value === "scholar" ? "block" : "none";
+            }
+        });
+    });
+</script>
 
 
    <!-- Cancel Button to go back -->
@@ -202,6 +283,7 @@
 				</div>
 </div>
 </form>
+
 
 <script>
     // Handle qualification selection and dynamically update Step 2 title
